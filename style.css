@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'guardians';
+    src: url(./fontes/Guardians.ttf) format('truetype');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-image: url(imagens/Home\ Page\ Background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+.navlist {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+.navlist :visited {
+    color: white;    
+}
+a {
+    text-decoration: none;
+}
+#NavBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 10px;
+}
+
+#login :visited{
+    color: white;
+}
+
+#Title {
+    font-size: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
