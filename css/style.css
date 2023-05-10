@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'cosmic';
+    src: url(../assets/fontes/Just\ Cosmic.otf) format('truetype');
+}
+
+.banner{
+    width: 100vw;
+    height: 100vh;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3;
+}
+
+a:hover{
+    opacity: 0.7;
+}
+
+body{
+    background-image: url(../assets/imagens/BackgroundTest.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 10vh;
+    position: relative;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+}
+
+
+.nav-list li{
+    letter-spacing: 3px;
+    margin-left: 32px;
+    color: #fff;
+    display: flex;
+}
+
+ul{
+    list-style: none;
+}
+
+#Title {
+    font-size: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    font-family: 'cosmic';
+}
