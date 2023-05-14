@@ -1,11 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
 @font-face {
     font-family: 'cosmic';
     src: url(../assets/fontes/Just\ Cosmic.otf) format('truetype');
 }
 
+body::-webkit-scrollbar {
+    width: 12px;               /* largura da scroll */
+}
+
+body::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0);        /* cor da área de trás da scroll */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(0, 0, 0);    /* cor da barra móvel da scroll */
+    border-radius: 20px;       /* borda arredondada */
+    border: 3px solid rgb(95, 95, 95);  /* padding */
+}
+
 .banner{
     width: 100vw;
     height: 100vh;
+    background-image: url(../assets/imagens/BackgroundTest.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
 }
 
 *{
@@ -23,36 +43,25 @@ a:hover{
     opacity: 0.7;
 }
 
-body{
-    background-image: url(../assets/imagens/BackgroundTest.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: white;
-}
-
 nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 10vh;
-    position: relative;
+    height: 8vh;
 }
 
-.nav-list {
-    list-style: none;
+ul{
     display: flex;
+    list-style: none;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
 }
-
 
 .nav-list li{
     letter-spacing: 3px;
     margin-left: 32px;
     color: #fff;
-    display: flex;
-}
-
-ul{
-    list-style: none;
 }
 
 #Title {
@@ -61,4 +70,52 @@ ul{
     justify-content: center;
     align-items: start;
     font-family: 'cosmic';
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: 'Work Sans', Courier, monospace;
+    background-color: #cee9fc;
+}
+
+.container2 {
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.sobre{
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.UpperSobre {
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.div_funcionalidades{
+    width: 100vw;
+    background-image: url("../assets/imagens/imgFuncionalidades.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+}
+.conteudo_funcionalidades{
+    width: 100%;
+}
+.cf_box1{
+    display: flex;
+    align-items: center;
+}
+.cf_1_texto{
+    display: flex;
+    flex-direction: column;
+    color: #fff0d8;
+    font-family: 'Work Sans', Courier, monospace;
 }
