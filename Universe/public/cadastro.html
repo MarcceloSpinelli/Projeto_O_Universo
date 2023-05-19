@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/CadastroStyle.css">
+    <title>Document</title>
+
+    <body>
+        <div class="main-cadastro">
+            <div class="left-cadastro">
+                <h1>Cadastre-se no Cosmos!</h1>
+            </div>
+            <div class="right-cadastro">
+                <div class="card-cadastro">
+                    <h1>CADASTRO</h1>
+                    <div class="textfield">
+                        <label for="usuario">Usuario</label>
+                        <input id="iptUsuario" type="text" name="Username" placeholder="Username">
+                    </div>
+                    <div class="textfield">
+                        <label for="senha">Senha</label>
+                        <input id = "iptSenha" type="password" name="Senha" placeholder="Senha">
+                    </div>
+                    <button class="btn-cadastro" onclick="cadastrar()">CADASTRO</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    </html>
+    <script>
+function cadastrar() {
+        var usernameVar = iptUsuario.value
+        var senhaVar = iptSenha.value
+        
+        if (senhaVar == "") {
+            alert("Insira uma senha")
+        
+        } else if (usernameVar == "") {
+            alert("Insira um nome válido")
+        
+        } else {
+
+    
+            // Enviando o valor da nova input
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: usernameVar,
+                    senhaServer: senhaVar,
+                })
+            }).then(function (resposta) {
+    
+                console.log("resposta: ", resposta);
+    
+                if (resposta.ok) {
+                    //cardErro.style.display = "block";
+    
+                    //mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+    
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, "2000")
+    
+                    // limparFormulario();
+                    // finalizarAguardar();
+                } else {
+                    throw ("Houve um erro ao tentar realizar o cadastro!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                // finalizarAguardar();
+            });
+    
+            return false;
+        }
+    
+        //function sumirMensagem() {
+        //  cardErro.style.display = "none"
+        //}
+
+
+    }
+    </script>
