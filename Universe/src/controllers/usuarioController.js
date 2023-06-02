@@ -29,7 +29,7 @@ function entrar(req, res) {
     var senha = req.body.senhaServer;
 
     if (nome == undefined) {
-        res.status(400).send("Seu email está undefined!");
+        res.status(400).send("Seu username está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
@@ -44,7 +44,7 @@ function entrar(req, res) {
                         console.log(resultado);
                         res.json(resultado[0]);
                     } else if (resultado.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
+                        res.status(403).send("Username e/ou senha inválido(s)");
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                     }
