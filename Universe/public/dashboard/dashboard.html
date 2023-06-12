@@ -6,9 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experiência</title>
     <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div id="aviso_previo_container" class="aviso_previo_container" style="display: flex;">
+        <div class="aviso_previo">
+            <img class="o-Universo" src="../assets/imagens/everywhere.png" style="width: 40%;" alt=""> <br><br><br>
+            <h1>Atenção</h1>
+            <p>
+                Esta experiência necessita que você ative o som de seu dispositivo. <br>
+                Certifique-se que seu volume está em um bom volume e confortável para você. <br><br>
+            </p>
+            <button class="btn" onclick="universo(),ganharMoeda()">Prosseguir</button>
+        </div>
+    </div>
+
+<!--Barra lateral, navegação pelas funcionalidades-->
+<div id="container" class="container" style="display: none;">
         <aside>
             <div class="sidebar">
                 <div class="list">
@@ -19,15 +33,402 @@
                     <div class="saldo"><img src="../assets/imagens/coin.png" alt="" style="width: 50px;">
                     <span id="span_saldo">500</span>
                     </div>
-                    <div onclick="observatório()" class="option">Observatório</div>
+                    <div onclick="observatorio()" class="option">Observatório</div>
                     <div onclick="pedirMusica()" class="option">Pedir uma música</div>
-                    <div onclick="loja()" class="option">Loja de livros</div>
+                    <div onclick="loja_livro()" class="option">Loja de livros</div>
                     <div onclick="quiz()" class="option">Quiz</div>
                     <div onclick="dashboard()" class="option">Dashboard</div>
                     <div onclick="limparSessao()" class="option">Sair</div>
                 </div>
             </div>
         </aside>
+        
+    <main>
+    <div id="loja_discos" class="loja" style="display: none;">
+            <div id="conteudoRecomendacao" class="conteudoRecomendacao" style="display: grid;">
+
+                <div class="recomendacaoTitulo">
+                    <img src="../assets/imagens/recomendacaoTitulo.png" alt="">
+                </div>
+
+                <div class="solicitarRecomendacao">
+                    <div class="div_botao" style="display: flex;">
+                        <button onclick="trocaTelaRecomendacao()" class="botaoRecomendacao">Recomendação</button>
+                    </div>
+                    <div class="precoRecomendacao">
+                        -<img style="height: 30px;" src="../assets/imagens/coin.png" alt="">200
+                    </div>
+                </div>
+        </div>
+        <div class="esperar" id="esperar" style="display: none;">
+            <img style="height: 400px;" src="../assets/imagens/Pensando.gif" alt="">
+        </div>
+        <div id="conteudo2Rec" class="conteudo2Rec" style="display: none;">
+            <div class="mostrarAlbumRecomendacao">
+                <div class="capa">
+                    <img id="capaAlbum" style="height: 400px;" src="https://i.scdn.co/image/ab67616d0000b27375b187a017d9b264d73faa74" alt="">
+                </div>
+
+                <div class="nomeAlbum">
+                    <span id="span_nome_album"></span> <br>
+                    <span>
+                        <a id="link_album" href=""target="_blank">
+                            Ouvir
+                        </a> <br>
+                    </span>
+
+                    <span class="voltarRecomendacao" onclick="trocaTelaRecomendacao2()">
+                        Voltar
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
     </div>
+
+<!--Loja de Livros-->
+
+            <div id="loja_livros" class="lojaL" style="display: none;">
+                <div id="conteudoRecomendacaoL" class="conteudoRecomendacaoL" style="display: grid;">
+
+                    <div class="recomendacaoTituloL">
+                        <img src="" alt="">
+                    </div>
+
+                    <div class="solicitarRecomendacaoL">
+                        <div class="div_botaoL" style="display: flex;">
+                            <button onclick="trocaTelaRecomendacaoL()" class="botaoRecomendacaoL">Recomendação</button>
+                        </div>
+                        <div class="precoRecomendacaoL">
+                            -<img style="height: 30px;" src="../assets/imagens/coin.png" alt="">200
+                        </div>
+                    </div>
+            </div>
+            <div class="esperarL" id="esperarL" style="display: none;">
+                <img style="height: 400px;" src="../assets/imagens/Pensando.gif" alt="">
+            </div>
+            <div id="conteudo2RecL" class="conteudo2RecL" style="display: none;">
+                <div class="mostrarAlbumRecomendacaoL">
+                    <div class="capaL">
+                        <img id="capaAlbumL" style="height: 400px;" src="https://i.scdn.co/image/ab67616d0000b27375b187a017d9b264d73faa74" alt="">
+                    </div>
+
+                    <div class="nomeAlbumL">
+                        <span id="span_nome_albumL"></span> <br>
+                        <span>
+                            <a id="link_albumL" href=""target="_blank">
+                                Ler
+                            </a> <br>
+                        </span>
+
+                        <span class="voltarRecomendacaoL" onclick="trocaTelaRecomendacao2L()">
+                            Voltar
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+                <div id="dashB" class="dash" style="display: none;">
+                    <div class="containerD">
+                        <div class="upper">
+                        <h3 class="KPI_h">O número de integrantes do cosmos é: <span class="bUser">undefined</span></h3>
+                        </div>
+                        <canvas id="grafico">
+
+                        </canvas>
+                    </div>
+                </div>
+    </main>
+
+</div>
+
+
+
 </body>
 </html>
+
+<!--Carregamento dos áudios-->
+<audio id="caixa_gasto" src="../assets/sons/caixa_gasto.mp3"></audio>
+<audio id="moedas" src="../assets/sons/moedas.mp3"></audio>
+
+<script>
+// <!--TROCA DE TELAS-->
+function pedirMusica() {
+        // observatorio.style.display = "none";
+        loja_discos.style.display = "flex";
+        loja_livros.style.display = "none";
+        dashB.style.display = "none"
+    //     quiz.style.display = "none"
+      }
+function loja_livro() {
+    //     sala_lareira.style.display = "block";
+        loja_discos.style.display = "none";
+        loja_livros.style.display = "flex";
+        dashB.style.display = "none"
+    //     let audio1 = document.querySelector('#lareira_audio');
+    //     audio1.play();
+     }
+    function dashboard(){
+        // observatorio.style.display = "none";
+        loja_discos.style.display = "none";
+        loja_livros.style.display = "none";
+        dashB.style.display = "flex"
+    //     quiz.style.display = "none"
+    }
+    // function pedirMusica() {
+    //     sala_lareira.style.display = "none";
+    //     sala_discos.style.display = "block";
+    //     loja_discos.style.display = "none";
+    //     informativa.style.display = "none"
+    //     let audio1 = document.querySelector('#lareira_audio');
+    //     audio1.pause();
+    // }
+    // function sala_informativa() {
+    //     sala_lareira.style.display = "none";
+    //     sala_discos.style.display = "none";
+    //     loja_discos.style.display = "none";
+    //     informativa.style.display = "block";
+    //     let audio1 = document.querySelector('#lareira_audio');
+    //     audio1.pause();
+    // }
+    // function lareira() {
+    //     aviso_previo_container.style.display = "none";
+    //     container.style.display = "grid";
+    //     let audio1 = document.querySelector('#lareira_audio');
+    //     audio1.play();
+    // }
+
+        function universo() {
+        aviso_previo_container.style.display = "none";
+        container.style.display = "grid";
+    }
+ // <!-- FUNCIONALIDADES DAS TELAS -->
+    var saldoUsuario = 500;
+
+    function ganharMoeda(){
+        var audioMoedas = document.querySelector('#moedas');
+            //for(var contador = 0; contador < 100; contador ++){
+                setInterval(function() {
+                saldoUsuario += 50;
+                span_saldo.innerHTML = saldoUsuario;
+                audioMoedas.play()
+                console.log(saldoUsuario)
+                }, 60000);
+            // };
+    }
+
+        // -------------------------- RECOMENDAÇÕES DE ALBUM ------------------------------
+        var albuns =
+        [
+            "Sticky Fingers - Land of pleasure",
+            "Sticky Fingers - Caress your soul",
+            "The Beatles - Please Please me",
+            "GG - Great Gable",
+            "Franz Ferdinand - Franz Ferdinand",
+            "Son Lux - Lanterns",
+            "Tom Misch & Yussef Dayes - What Kinda Music",
+            "Boston - Boston",
+            "Sumac Dub - Le Jardin de Lucy",
+            "IDLES - ULTRA MONO",
+            "Vashti Bunyan – Just Another Diamond Day",
+            "Sophia Chablau e Uma Enorme Perda de Tempo",
+            "Led Zeppelin - Houses of the Holy",
+            "Pom Poko - Cheater"
+        ];
+    var capaAlbuns =
+        [
+        "https://i.scdn.co/image/ab67616d0000b27375b187a017d9b264d73faa74",
+        "https://lastfm.freetls.fastly.net/i/u/ar0/fc6a40bef89e331a7dfa573e4330e5ca.jpg",
+        "https://hqrock.files.wordpress.com/2013/03/pleasepleaseme-cover.jpg",
+        "https://e.snmc.io/i/600/s/e98e2e3e257591d43b271adc6c007b9a/7626627/great-gable-gg-Cover-Art.jpg",
+        "https://media.s-bol.com/n55ylQ9wKnvp/550x543.jpg",
+        "https://m.media-amazon.com/images/I/51FNM9mVijL._SL1200_.jpg",
+        "https://monkeybuzz.com.br/wp-content/uploads/2020/05/tom-misch-and-yussef-dayes-what-kinda-music1.jpg",
+        "https://wordsofleisure.files.wordpress.com/2013/10/boston-more-than-a-feeling.jpg",
+        "https://m.media-amazon.com/images/I/61ooGM6hZAL._UXNaN_FMjpg_QL85_.jpg",
+        "https://espalhafactos.com/wp-content/uploads/2020/09/idles-ultra-mono-review-770x770.jpg",
+        "https://img.discogs.com/65EVCrMPxbpC6V4BP9Dadnd7brA=/fit-in/600x594/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1911024-1589058031-6428.jpeg.jpg",
+        "https://f4.bcbits.com/img/a0182928860_5.jpg",
+        "https://3.bp.blogspot.com/-6QHTHz1B16c/WHAITyW4AvI/AAAAAAAAbcU/Zz79H0rLISUVpV04ZKO4tVY52h5JGV_zwCLcB/s1600/Led-Zeppelin-Houses-of-the-Holy-album-cover.jpg",
+        "https://lastfm.freetls.fastly.net/i/u/ar0/f35b8d877c58f8601beaf093534bb97c.jpg"
+        ];
+    var albunsSpotfy = [
+        "https://www.youtube.com/watch?v=jpmBTCnt9yc",
+        "https://www.youtube.com/watch?v=nZQWy3Kd40Q",
+        "https://www.youtube.com/watch?v=oxwAB3SECtc&list=PLF8degF-CITi6MhbrOOuk10yLb6JZLiSY",
+        "https://www.youtube.com/watch?v=jSYRmNYD-mM&list=PLKhqhjZGiG824Lr_PR1dXxh4-jbGaUiCy",
+        "https://www.youtube.com/watch?v=1rffbvFneOc",
+        "https://www.youtube.com/watch?v=q1u79rmMd8g&list=PLsfO5_pz1IKWAqHlHOXyYz1F8IORMCk6j",
+        "https://www.youtube.com/watch?v=x30wgUCt72k&list=PL2wXweDr-uPgsFJ2e8MO8CMGxUXLJtoj_",
+        "https://www.youtube.com/watch?v=wu77H0gsAYY",
+        "https://www.youtube.com/watch?v=Ljw5eJdO4kQ",
+        "https://www.youtube.com/watch?v=BLcM3fq6Quk&list=PLT8whgyVO-Pv10nXNDTqF7KtKPP8nkMFP",
+        "https://www.youtube.com/watch?v=7-HDcMplduA&list=PLOJWuc3CN303zg1tLJ6gJNhIRxCnv6dwI",
+        "https://www.youtube.com/watch?v=5t0h3a-vi8E",
+        "https://www.youtube.com/watch?v=eLnD-CVIssY",
+        "https://www.youtube.com/watch?v=Wn9iBDQObhQ&t=296s"
+    ];
+
+    var books =
+        [
+            "Universo na Casca de Nóz - Stephen Hawking",
+            "Teoria da Relatividade - Albert Einstein",
+            "Cosmos - Carl Sagan",
+            "Duna - Frank Herbert",
+            "Sete Breves Lições Sobre a Física - Joana d Melo",
+            "The Other Gods - H . P Lovrecaft",
+            "Buracos Negros - Stephen Hawking",
+            "Pálido Ponto Azul - Carl Sagan",
+            "Do atomo ao buraco negro: Scharwza",
+            "Uma breve história sobre tempo - Stephen Hawking",
+            "A realidade não é o que parece - Carlo Rovelli",
+            "Abismo Vertiginoso - Carlo Rovelli",
+            "Fisica Atômica - Niels Bohr",
+            "Para além do bem e do Mal"
+        ];
+    var capaBooks =
+        [
+        "https://m.media-amazon.com/images/I/51wYh204mfL.jpg",
+        "https://m.media-amazon.com/images/I/41lIZkkZkhL._AC_UF1000,1000_QL80_.jpg",
+        "https://m.media-amazon.com/images/I/71zVhbnKmfL._AC_UF1000,1000_QL80_.jpg",
+        "https://imusic.b-cdn.net/images/item/original/196/9780340960196.jpg?frank-herbert-2015-dune-paperback-book&class=scaled",
+        "https://images.tcdn.com.br/img/img_prod/937309/sete_breves_licoes_de_fisica_113269_1_7b45d4cb6c5f1e0434a4d36017265489.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAMBWnIXaMgGUiTE4pXI8EKhcDc4f_IpVW_NcRrfn_5sC-lboc",
+        "https://img.travessa.com.br/livro/BA/6f/6f70596a-274f-49e6-bc77-07686e3c235c.jpg",
+        "https://m.media-amazon.com/images/P/B07V66FSVP.01._SCLZZZZZZZ_SX500_.jpg", 
+        "https://m.media-amazon.com/images/P/B07F8GQ68T.01._SCLZZZZZZZ_SX500_.jpg",  
+        "https://m.media-amazon.com/images/P/B00RTQVEQC.01._SCLZZZZZZZ_SX500_.jpg",
+        "https://m.media-amazon.com/images/P/B06XD9KF9S.01._SCLZZZZZZZ_SX500_.jpg",
+        "https://m.media-amazon.com/images/P/B099FLXF7R.01._SCLZZZZZZZ_SX500_.jpg",
+        "https://m.media-amazon.com/images/P/B08Y9629RD.01._SCLZZZZZZZ_SX500_.jpg",
+        "https://m.media-amazon.com/images/P/B00A3D1JLI.01._SCLZZZZZZZ_SX500_.jpg"
+        ];
+    var amzBooks = [
+        "https://www.amazon.com.br/universo-numa-casca-noz/dp/8580578884",
+        "https://www.amazon.com.br/Teoria-relatividade-sobre-teoria-especial/dp/852543275X/ref=asc_df_852543275X/?tag=googleshopp00-20&linkCode=df0&hvadid=379751745514&hvpos=&hvnetw=g&hvrand=6170349856203528027&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1001773&hvtargid=pla-387848316163&psc=1&asin=B0BKJWWXSN&revisionId=394eb47d&format=1&depth=1",
+        "https://www.amazon.com.br/Cosmos-Carl-Sagan/dp/8535929886",
+        "https://www.amazon.com.br/Duna-Frank-Herbert/dp/857657313X/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=&sr=",
+        "https://www.amazon.com.br/breves-lições-física-Carlo-Rovelli/dp/8539007096/ref=asc_df_8539007096/?tag=googleshopp00-20&linkCode=df0&hvadid=379725600420&hvpos=&hvnetw=g&hvrand=12327286605648938114&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1001773&hvtargid=pla-333762635930&psc=1",
+        "https://www.amazon.com.br/Other-Gods-H-P-Lovecraft/dp/1494769158",
+        "https://www.amazon.com.br/Buracos-Negros-Stephen-Hawking/dp/8551000985",
+        "https://www.amazon.com.br/Pálido-ponto-azul-Nova-edição/dp/8535931937/ref=sr_1_14?__mk_pt_BR=ÅMÅŽÕÑ&crid=191LY7WDLPG0Q&keywords=astronomia&qid=1686521756&sprefix=astronomia%2Caps%2C373&sr=8-14",
+        "https://www.amazon.com.br/átomo-buraco-negro-descomplicar-astronomia/dp/854221367X/ref=sr_1_10?__mk_pt_BR=ÅMÅŽÕÑ&crid=1G2249PD9O0X0&keywords=astronomia&qid=1686521890&sprefix=astronom%2Caps%2C239&sr=8-10",
+        "https://www.amazon.com.br/Uma-Breve-História-do-Tempo/dp/8580576466/ref=d_pd_sbs_sccl_2_2/147-5966741-9137443?pd_rd_w=EVCyR&content-id=amzn1.sym.f14d3066-f640-490b-be63-642232e30730&pf_rd_p=f14d3066-f640-490b-be63-642232e30730&pf_rd_r=XYYRMQ2P4207XDXK4JSY&pd_rd_wg=wcNSn&pd_rd_r=25287572-264e-43b7-bd05-40d610f835cc&pd_rd_i=8580576466&psc=1",
+        "https://www.amazon.com.br/realidade-não-que-parece-estrutura-ebook/dp/B06XD9KF9S/ref=sr_1_2?adgrpid=125747244371&hvadid=595905804143&hvdev=c&hvlocphy=1001773&hvnetw=g&hvqmt=e&hvrand=5560073009911204840&hvtargid=kwd-1285033262&hydadcr=29991_14594563&keywords=carlo+rovelli&qid=1686522340&sr=8-2",
+        "https://www.amazon.com.br/abismo-vertiginoso-mergulho-efeitos-quântica/dp/854700131X/ref=sr_1_4?adgrpid=125747244371&hvadid=595905804143&hvdev=c&hvlocphy=1001773&hvnetw=g&hvqmt=e&hvrand=5560073009911204840&hvtargid=kwd-1285033262&hydadcr=29991_14594563&keywords=carlo+rovelli&qid=1686522432&sr=8-4",
+        "https://www.amazon.com.br/Física-Atômica-Conhecimento-Humano-Niels/dp/8585910070",
+        "https://www.amazon.com.br/Além-bem-mal-Friedrich-Nietzsche/dp/8525417351/ref=sr_1_3?adgrpid=128519385539&hvadid=595853716273&hvdev=c&hvlocphy=1001773&hvnetw=g&hvqmt=e&hvrand=17769254105291343264&hvtargid=kwd-419252711436&hydadcr=20304_13348806&keywords=para+além+do+bem+e+do+mal&qid=1686522803&sr=8-3"
+    ];
+
+    function trocaTelaRecomendacao(){
+        var caixaGasto = document.querySelector('#caixa_gasto');
+        var sorteador = Number((Math.random()*13 + 1).toFixed());
+        console.log(sorteador)
+
+        if(saldoUsuario >= 200){
+            saldoUsuario = saldoUsuario - 200;
+            span_saldo.innerHTML = saldoUsuario;
+            conteudoRecomendacao.style.display = "none";
+            esperar.style.display = "flex";
+            caixaGasto.play();
+
+            setTimeout(function() {
+            esperar.style.display = "none";
+            conteudo2Rec.style.display = "flex";
+            capaAlbum.src = `${capaAlbuns[sorteador - 1]}`;
+            span_nome_album.innerHTML = `${albuns[sorteador - 1]}`;
+            link_album.href = `${albunsSpotfy[sorteador - 1]}`;
+            }, 2500);
+        }
+        else if (saldoUsuario < 200){
+            alert("Você não possui moedas o suficiente para uma recomendação. Permaneça no site por 1 minuto para ganhar mais moedas.")
+        }
+    };
+
+    function trocaTelaRecomendacao2(){
+        conteudoRecomendacao.style.display = "grid";
+        conteudo2Rec.style.display = "none";
+    }
+
+    function trocaTelaRecomendacaoL(){
+        var caixaGasto = document.querySelector('#caixa_gasto');
+        var sorteador = Number((Math.random()*13 + 1).toFixed());
+        console.log(sorteador)
+
+        if(saldoUsuario >= 200){
+            saldoUsuario = saldoUsuario - 200;
+            span_saldo.innerHTML = saldoUsuario;
+            conteudoRecomendacaoL.style.display = "none";
+            esperarL.style.display = "flex";
+            caixaGasto.play();
+
+            setTimeout(function() {
+            esperarL.style.display = "none";
+            conteudo2RecL.style.display = "flex";
+            capaAlbumL.src = `${capaBooks[sorteador - 1]}`;
+            span_nome_albumL.innerHTML = `${books[sorteador - 1]}`;
+            link_albumL.href = `${amzBooks[sorteador - 1]}`;
+            }, 2500);
+        }
+        else if (saldoUsuario < 200){
+            alert("Você não possui moedas o suficiente para uma recomendação. Permaneça no site por 1 minuto para ganhar mais moedas.")
+        }
+    };
+
+    function trocaTelaRecomendacao2L(){
+        conteudoRecomendacaoL.style.display = "grid";
+        conteudo2RecL.style.display = "none";
+    }
+    
+
+
+    const ctx = document.getElementById('grafico');
+
+new Chart(ctx, {
+type: 'bar',
+data: {
+    labels: ['Respostas'],
+    datasets: [{
+    label: '1 Acerto',
+    data: [1],
+    borderWidth: 1
+    }, {
+    label: '2 Acertos',
+    data: [1],
+    borderWidth: 1
+    }, {
+    label: '3 Acertos',
+    data:  [1],
+    borderWidth: 1
+    }, {
+    label: '4 Acertos',
+    data:  [5],
+    borderWidth: 1
+    }, {
+    label: '5 Acertos',
+    data:  [1],
+    borderWidth: 1
+    }], 
+},
+options: {
+    scales: {
+    y: {
+        beginAtZero: true
+    }
+    },
+    aspectRatio: 1 | 2
+}
+});
+
+
+    function limparSessao() {
+    // aguardar();
+    sessionStorage.clear();
+    // finalizarAguardar();
+    window.location = "../login.html";
+}
+
+</script>
