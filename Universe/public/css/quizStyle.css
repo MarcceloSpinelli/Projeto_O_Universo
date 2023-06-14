@@ -3,12 +3,22 @@
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+    background-color: transparent;
+    color: black;
+}
+
 button{
     border: #2600fe;
     border-radius: 10px;
     height: 30px;
     font-size: 15px;
     cursor: pointer;
+}
+
+button:hover{
+    background-color: blueviolet;
 }
 
 body{
@@ -21,4 +31,51 @@ body{
     height: 100vh;
     width: 100vw;
     background-color: red;
+}
+
+.painel {
+    display: flex;
+    height: 15vh;
+    width: 95vw;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.quiz {
+    text-decoration: none;
+}
+
+.conteudoQuiz {
+    width: 60vw;
+    height: 65vh;
+    background-color: #2600fe;
+    display: flex;
+    border-radius: 45px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.conteudoPainel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pergunta {
+    width: 90%;
+    height: 20%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.opcoes {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
