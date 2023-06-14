@@ -91,9 +91,38 @@ function cadastrar(req, res) {
     }
 }
 
+function inserir(req, res){
+    var pontuacao = req.body.pontuacaoServer;
+    var idUsuario = req.body.idUsuarioServer;
+    if (pontuacao == undefined) {
+        res.status(400).send("Sua pontuacao está undefined!");
+    } else if (idUsuario == undefined) {
+        res.status(400).send("Seu idUsuario está undefined!");
+    } else {
+        
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.inserir(pontuacao, idUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     cadastrar,
     listar,
-    testar
+    testar,
+    inserir
 }

@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/logo.png">
+    <link rel="icon" href="">
     <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../css/quizStyle.css">
 
-    <title> Quiz </title>
+    <title> Desafio do Cosmos </title> 
 </head>
 
 <body onload="mostrarQuiz()">
@@ -26,16 +27,18 @@
 
                     <div id="div_mostrarImagem"></div>
 
-                    <h3>Olá, <span id="b_usuario"></span>!</h3>
+                    <h3>Olá, <span>Usuario</span>!</h3>
                 </div>
 
                 <div class="botoes">
-                    <button class="quiz"> <a href="quiz.html"> QUIZ</a></button> <br>
+                    <button class="quiz"> <a href="quiz.html"> WormHole</a></button> <br>
                 </div>
             </div>
+
+
             <div class="conteudoQuiz">
                 <!-- titulo do quiz -->
-                <h3 id="titulo" class="titulo">Mostre seu valor</h3>
+                <h3 id="titulo" class="titulo">Desafio do Cosmos</h3>
                 <!-- pergunta do quiz -->
                 <div id="pergunta" class="pergunta"></div>
                 <div id="opcoes" class="opcoes">
@@ -87,7 +90,7 @@
 
     var perguntaAtual = 0;
     var pontuacao = 0;
-
+    var idUsuario = sessionStorage.ID_USUARIO
     // script do funcionamento do QUIZ!!
     function mostrarQuiz() {
         var divPergunta = document.getElementById("pergunta");
@@ -136,11 +139,12 @@
             resultado.innerHTML = `Você acertou ${pontuacao} de ${perguntas.length} perguntas`;
         }
     
-     var idUsuario = sessionStorage.ID_USUARIO
-     console.log(idUsuario);
+        var totalPontosVar = totalPontos
+        var idVar = sessionStorage.ID_USUARIO
+        console.log (idVar + "verificando idVar")
 
-
-        fetch("/usuarios/pontuacao", {
+        if (perguntaAtual == 5){ 
+            fetch("usuarios/pontuacao", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -148,33 +152,26 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                pontuacaoServer: totalPontos, 
-                idUsuarioServer: idUsuario
+                pontuacaoServer: totalPontosVar, 
+                idUsuarioServer: idVar
             })
         }).then(function (resposta) {
 
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                cardErro.style.display = "block";
 
-                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+                console.log("dados cadastrados")
 
-                setTimeout(() => {
-                    window.location = "login.html";
-                }, "2000")
-
-                limparFormulario();
-                finalizarAguardar();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
+            //finalizarAguardar();
         });
 
         return false;
     }
-    
+}    
 </script>

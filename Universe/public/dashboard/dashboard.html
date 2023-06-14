@@ -134,7 +134,7 @@
                 <div id="dashB" class="dash" style="display: none;">
                     <div class="containerD">
                         <div class="upper">
-                        <h3 class="KPI_h">O número de integrantes do cosmos é: <span class="bUser">undefined</span></h3>
+                        <h3 class="KPI_h">O número de integrantes do cosmos é: <span id="span_user" class="bUser">undefined</span></h3>
                         </div>
                         <canvas id="grafico">
 
@@ -176,6 +176,7 @@ function loja_livro() {
         loja_discos.style.display = "none";
         loja_livros.style.display = "none";
         dashB.style.display = "flex"
+        bUser.innerHTML = resposta.qtdQuiz
     //     quiz.style.display = "none"
     }
     // function pedirMusica() {
@@ -382,49 +383,88 @@ function loja_livro() {
         conteudoRecomendacaoL.style.display = "grid";
         conteudo2RecL.style.display = "none";
     }
-    
+
+    window.onload = obterDadosGrafico();
+
+    function obterDadosGrafico() {
 
 
-    const ctx = document.getElementById('grafico');
+fetch(`/medidas/qtdQuiz`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
 
-new Chart(ctx, {
-type: 'bar',
-data: {
-    labels: ['Respostas'],
-    datasets: [{
-    label: '1 Acerto',
-    data: [1],
-    borderWidth: 1
-    }, {
-    label: '2 Acertos',
-    data: [1],
-    borderWidth: 1
-    }, {
-    label: '3 Acertos',
-    data:  [1],
-    borderWidth: 1
-    }, {
-    label: '4 Acertos',
-    data:  [5],
-    borderWidth: 1
-    }, {
-    label: '5 Acertos',
-    data:  [1],
-    borderWidth: 1
-    }], 
-},
-options: {
-    scales: {
-    y: {
-        beginAtZero: true
+            plotarGrafico(resposta);
+
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
     }
-    },
-    aspectRatio: 1 | 2
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
 }
-});
+
+// Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+// Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+// A função *plotarGrafico* também invoca a função *atualizarGrafico*
+function plotarGrafico(resposta) {
+
+console.log('iniciando plotagem do gráfico...');
+
+// Criando estrutura para plotar gráfico - labels
+let labels = [];
+
+// Criando estrutura para plotar gráfico - dados
+let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Gênios testados',
+                data: [],
+                fill: false,
+                borderColor: 'purple',
+                tension: 0.1
+            }]
+        };
+
+console.log('----------------------------------------------')
+console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+console.log(resposta)
+
+// Inserindo valores recebidos em estrutura para plotar o gráfico
+for (i = 0; i < resposta.length; i++) {
+    var registro = resposta[i];
+    dados.datasets[0].data.push(registro.qtdQuiz);
 
 
-    function limparSessao() {
+}
+
+
+
+// Criando estrutura para plotar gráfico - config
+const config = {
+    type: 'line',
+    data: dados,
+};
+
+// Adicionando gráfico criado em div na tela
+let myChart = new Chart(
+            document.getElementById(`grafico`),
+            config
+        );
+
+
+    // const ctx = document.getElementById('grafico');
+
+
+
+
+    
+}
+
+function limparSessao() {
     // aguardar();
     sessionStorage.clear();
     // finalizarAguardar();
