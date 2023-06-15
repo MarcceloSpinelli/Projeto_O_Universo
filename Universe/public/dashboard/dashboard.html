@@ -36,7 +36,7 @@
                     <div onclick="observatorio()" class="option">Observatório</div>
                     <div onclick="pedirMusica()" class="option">Pedir uma música</div>
                     <div onclick="loja_livro()" class="option">Loja de livros</div>
-                    <a href="../dashboard/quiz.html"><div onclick="quiz()" class="option">Quiz</div></a>
+                    <a href="../quiz.html"><div onclick="quiz()" class="option">Quiz</div></a>
                     <div onclick="dashboard()" class="option">Dashboard</div>
                     <div onclick="limparSessao()" class="option">Sair</div>
                 </div>
@@ -134,7 +134,7 @@
                 <div id="dashB" class="dash" style="display: none;">
                     <div class="containerD">
                         <div class="upper">
-                        <h3 class="KPI_h">O número de integrantes do cosmos é: <span id="span_user" class="bUser">undefined</span></h3>
+                        <h3 class="KPI_h">Tentaivas realizadas: <span id="span_user">undefined</span></h3>
                         </div>
                         <canvas id="grafico">
 
@@ -176,7 +176,6 @@ function loja_livro() {
         loja_discos.style.display = "none";
         loja_livros.style.display = "none";
         dashB.style.display = "flex"
-        bUser.innerHTML = resposta.qtdQuiz
     //     quiz.style.display = "none"
     }
     // function pedirMusica() {
@@ -383,6 +382,8 @@ function loja_livro() {
         conteudoRecomendacaoL.style.display = "grid";
         conteudo2RecL.style.display = "none";
     }
+// GRAFICO
+
 
     window.onload = obterDadosGrafico();
 
@@ -396,6 +397,8 @@ fetch(`/medidas/qtdQuiz`, { cache: 'no-store' }).then(function (response) {
             resposta.reverse();
 
             plotarGrafico(resposta);
+            span_user.innerHTML = resposta[0].qtdQuiz
+            console.log(resposta[0].qtdQuiz)
 
         });
     } else {
@@ -414,17 +417,15 @@ function plotarGrafico(resposta) {
 
 console.log('iniciando plotagem do gráfico...');
 
-// Criando estrutura para plotar gráfico - labels
-let labels = [];
-
 // Criando estrutura para plotar gráfico - dados
 let dados = {
-            labels: labels,
+            labels: [''],
             datasets: [{
                 label: 'Gênios testados',
                 data: [],
                 fill: false,
-                borderColor: 'purple',
+                borderColor: 'white',
+                backgroundColor: 'red',
                 tension: 0.1
             }]
         };
@@ -437,15 +438,12 @@ console.log(resposta)
 for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
     dados.datasets[0].data.push(registro.qtdQuiz);
-
-
+    console.log(registro.qtdQuiz)
 }
-
-
 
 // Criando estrutura para plotar gráfico - config
 const config = {
-    type: 'line',
+    type: 'bar',
     data: dados,
 };
 
